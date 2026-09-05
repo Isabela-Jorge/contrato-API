@@ -81,7 +81,7 @@ app.get('/produtos', (req, res)=> {
 
         conexao.query(
             sql,
-            [id, nome preco],
+            [id, nome, preco],
             (erro, resultados)=>{
 
                 if(erro){
@@ -92,8 +92,63 @@ app.get('/produtos', (req, res)=> {
 
                 }
 
-                const linhaAfetadas
+                const linhaAfetadas =
+                  resultados[0][0].linhaAfetadas
+
+                if(linhaAfetadas){
+                  return res.status(404).json({
+                    erro: 'Produto não encontrado'
+                  });
+                }
+
+                res.status(200).json({
+                    mensagem: 'Produto atualizado com sucesso',
+                    produto: {
+                        id,
+                        nome,
+                        preco
+                    }
+                })
             }
         )
     })
 })
+
+app.delete('/produto/:id', (req, res)=>{
+
+    const id = req.params.id;
+
+    const sql = 'CALL sp_excluir_produto(?)'
+
+    conexao.query(
+
+        sql,
+        [id],
+        (erro, resultado)=>{
+
+            if(erro){
+
+                return res.status(500).json({
+                    erro: 'Erro ao excluir produto'
+                })
+            }
+
+            const linhaAfetadas =
+            resultados[0][0].linhaAfetadas;
+
+            if(linhaAfetadas === 0){
+                return res.status(404).json({
+                    erro: 'Produto excluido com sucesso'
+                })
+            }
+        }
+    )
+})
+
+
+app.listen(PORT, () => {
+
+    console.log(
+        `Servidor rodando em http://localhost:${PORT}`
+    );
+});

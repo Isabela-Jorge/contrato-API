@@ -3,9 +3,8 @@ CREATE DATABASE IF NOT EXISTS aula_crud;
 USE aula_crud;
 
 
--- ============================================================
--- TABELA PRODUTOS
--- ============================================================
+-- TABELA PRODUTOS --
+
 
 CREATE TABLE IF NOT EXISTS produtos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,10 +12,7 @@ CREATE TABLE IF NOT EXISTS produtos (
     preco DECIMAL(10,2) NOT NULL
 );
 
-
--- ============================================================
--- REMOVE AS PROCEDURES CASO JÁ EXISTAM
--- ============================================================
+-- REMOVE AS PROCEDURES CASO JÁ EXISTAM --
 
 DROP PROCEDURE IF EXISTS sp_listar_produtos;
 DROP PROCEDURE IF EXISTS sp_cadastrar_produto;
@@ -24,9 +20,8 @@ DROP PROCEDURE IF EXISTS sp_atualizar_produto;
 DROP PROCEDURE IF EXISTS sp_excluir_produto;
 
 
--- ============================================================
 -- READ - LISTAR PRODUTOS
--- ============================================================
+
 
 DELIMITER //
 
@@ -45,9 +40,8 @@ END //
 DELIMITER ;
 
 
--- ============================================================
--- CREATE - CADASTRAR PRODUTO
--- ============================================================
+-- CREATE - CADASTRAR PRODUTO --
+
 
 DELIMITER //
 
@@ -74,9 +68,7 @@ END //
 DELIMITER ;
 
 
--- ============================================================
--- UPDATE - ATUALIZAR PRODUTO
--- ============================================================
+-- UPDATE - ATUALIZAR PRODUTO --
 
 DELIMITER //
 
@@ -100,9 +92,8 @@ END //
 DELIMITER ;
 
 
--- ============================================================
--- DELETE - EXCLUIR PRODUTO
--- ============================================================
+-- DELETE - EXCLUIR PRODUTO --
+
 
 DELIMITER //
 
