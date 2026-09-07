@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const app = express();
 const PORT = 3000;
@@ -9,8 +9,9 @@ app.use(express.json());
 const conexao = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '123456',
-    database: 'aula_crud'
+    password: '',
+    database: 'aula_crud',
+    port: 3306
 });
 
 conexao.connect((erro) => {
@@ -29,13 +30,14 @@ app.get('/produtos', (req, res)=> {
     conexao.query(sql, (erro, resultado)=>{
 
         if(erro){
+            console.log(erro);
             return res.status(500).json({
 
                 erro: 'erro ao buscar produtos'
             });
         }
 
-        res.status(200).json(resultados[0])
+        res.status(200).json(resultado[0])
     })
 
     app.post('/produtos', (req, res)=>{
